@@ -1,4 +1,7 @@
-MakeCache.txt
+test
+lab
+
+CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 Makefile

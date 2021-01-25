@@ -6,13 +6,9 @@
 #include "op.hpp"
 #include "rand.hpp"
 #include "pow.hpp"
-
 #include "Mult.hpp"
-
 #include "Add.hpp"
-
 #include "Div.hpp"
-
 #include "Sub.hpp"
 
 TEST(OpTest, OpEvaluateNonZero) {
@@ -88,5 +84,54 @@ TEST(PowTest, PowEvaluateZeroExponent) {
 	Pow* test = new Pow(val, exp);
 	EXPECT_EQ(test->evaluate(), 1);
 }
+
+TEST(ComboTest, AddSubEvaluatePositive) {
+	Op* a = new Op(5);
+	Op* b = new Op(4);
+	Op* c = new Op(3);
+	Add* add = new Add(a, b);
+	Sub* sub = new Sub(add, c);
+	EXPECT_EQ(sub->evaluate(), 6);
+}
+
+TEST(ComboTest, AddMultEvaluatePositive) {
+	Op* a = new Op(5);
+	Op* b = new Op(4);
+	Op* c = new Op(3);
+	Add* add = new Add(a, b);
+	Mult* mult = new Mult(add, c);
+	EXPECT_EQ(mult->evaluate(), 27);
+}
+
+TEST(StringTest, OpStringify) {
+	Op* test = new Op(4);
+	EXPECT_EQ(test->stringify(), "4");
+}
+
+TEST(StringTest, PowStringify) {
+	Op* a = new Op(5);
+	Op* b = new Op(4);
+	Pow* pow = new Pow(a, b);
+	EXPECT_EQ(pow->stringify(), "(5)**(4)");
+}
+
+TEST(StringTest, SubDivStringify) {
+	Op* a = new Op(5);
+	Op* b = new Op(4);
+	Op* c = new Op(3);
+	Sub* sub = new Sub(a, b);
+	Div* div = new Div(sub, c);
+	EXPECT_EQ(div->stringify(), "((5-4)/3)");
+}
+
+TEST(StringTest, AddMultStringify) {
+	Op* a = new Op(5);
+	Op* b = new Op(4);
+	Op* c = new Op(3);
+	Add* add = new Add(a, b);
+	Mult* mult = new Mult(add, c);
+	EXPECT_EQ(mult->stringify(), "((5+4)*3)");
+}
+
 
 #endif //__OP_TEST_HPP__

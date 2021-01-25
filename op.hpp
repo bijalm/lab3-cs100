@@ -4,6 +4,7 @@
 #include "base.hpp"
 
 class Op : public Base {
+
 	private:
 		int value;
 	

@@ -1,16 +1,16 @@
-#ifndef __OP_HPP__
-#define __OP_HPP__
+#ifndef __RAND_HPP__
+#define __RAND_HPP__
 
 #include "base.hpp"
 
-class Op : public Base {
+class Rand : public Base {
 	private:
 		int value;
 	
 	public:
-        	Op(double value) : Base() { this->value = value; }
+        	Rand() : Base() { this->value = std::rand() % 100; }
         	virtual double evaluate() { return value; }
         	virtual std::string stringify() { return std::to_string(value); }
 };
 
-#endif //__OP_HPP__
+#endif //__RAND_HPP__
